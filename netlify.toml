@@ -1,0 +1,12 @@
+# Tot & Tote — Netlify configuration
+# Next.js 16 runs natively via the official Netlify Next.js runtime.
+
+[build]
+  command = "npm run build"
+  publish  = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

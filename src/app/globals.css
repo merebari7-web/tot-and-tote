@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #faf4ea;
+  --color-paper: #fffdf8;
+  --color-ink: #221a13;
+  --color-cocoa: #5c4f42;
+  --color-mute: #8b7d6d;
+  --color-clay: #d9592b;
+  --color-clay-deep: #b4431d;
+  --color-butter: #f2b33c;
+  --color-sage: #8ca378;
+  --color-blues: #6f97bf;
+  --color-rose: #e2a3a1;
+  --color-sand: #f0e6d6;
+  --color-line: #e6dac5;
+
+  --font-display: var(--font-fraunces), "Georgia", serif;
+  --font-sans: var(--font-outfit), "Segoe UI", system-ui, sans-serif;
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-marquee-slow: marquee 46s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-delayed: float 9s ease-in-out 1.4s infinite;
+  --animate-spin-slower: spin 22s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(var(--float-rotate, 0deg));
+    }
+    50% {
+      transform: translateY(-12px) rotate(var(--float-rotate, 0deg));
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream text-ink font-sans antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-clay);
+  color: var(--color-cream);
+}
+
+/* film-grain texture */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-clay) 70%, var(--color-cream));
+  border-radius: 999px;
+  border: 2px solid var(--color-cream);
+}
+
+.arch {
+  border-radius: 999px 999px 28px 28px;
+}
+
+.text-outline {
+  -webkit-text-stroke: 1.5px var(--color-ink);
+  color: transparent;
+}
+
+.text-outline-cream {
+  -webkit-text-stroke: 1.5px rgba(250, 244, 234, 0.5);
+  color: transparent;
+}
+
+.dotgrid {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-ink) 12%, transparent) 1.2px,
+    transparent 1.2px
+  );
+  background-size: 24px 24px;
+}
+
+input[type="checkbox"].fancy {
+  appearance: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 1.5px solid var(--color-line);
+  border-radius: 0.35rem;
+  background: var(--color-paper);
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+input[type="checkbox"].fancy::before {
+  content: "";
+  width: 0.6rem;
+  height: 0.6rem;
+  transform: scale(0);
+  transition: transform 0.18s ease;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  background: var(--color-paper);
+}
+input[type="checkbox"].fancy:checked {
+  background: var(--color-clay);
+  border-color: var(--color-clay);
+}
+input[type="checkbox"].fancy:checked::before {
+  transform: scale(1);
+}
+
+.field {
+  @apply w-full rounded-xl border border-line bg-paper px-4 py-3 text-sm text-ink placeholder:text-mute/70 outline-none transition-all;
+}
+.field:focus {
+  border-color: var(--color-clay);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-clay) 18%, transparent);
+}
